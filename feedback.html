@@ -1,0 +1,158 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head>     
+    <meta charset="UTF-8">     
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">     
+    <title>NeoBridge Feedback Form</title>     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">     
+    <style>         
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .stars {
+            display: flex;
+            gap: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #ccc;
+        }
+        .stars i.active {
+            color: gold;
+        }
+        button {
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .thank-you {
+            display: none;
+            color: green;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head> 
+<body>     
+    <div class="container">         
+        <h2 id="form-title">NeoBridge Feedback Form</h2>
+        
+        <label for="language">Select Language:</label>
+        <select id="language" onchange="changeLanguage()">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी</option>
+            <option value="te">తెలుగు</option>
+        </select>
+        
+        <form id="feedback-form">             
+            <div class="form-group">                 
+                <label id="name-label" for="name">Your Name:</label>                 
+                <input type="text" id="name" name="name" required>             
+            </div>             
+            <div class="form-group">                 
+                <label id="email-label" for="email">Your Email:</label>                 
+                <input type="email" id="email" name="email" required>             
+            </div>             
+            <div class="form-group">                 
+                <label id="experience-label" for="experience">How was your experience using NeoBridge?</label>                 
+                <select id="experience" name="experience" required>                     
+                    <option value="">Select an option</option>                     
+                    <option value="Excellent">Excellent</option>                     
+                    <option value="Good">Good</option>                     
+                    <option value="Average">Average</option>                     
+                    <option value="Poor">Poor</option>                 
+                </select>             
+            </div>             
+            <div class="form-group">                 
+                <label id="rate-label">Rate Us:</label>                 
+                <div class="stars">                     
+                    <i class="fa fa-star" data-value="1"></i>                     
+                    <i class="fa fa-star" data-value="2"></i>                     
+                    <i class="fa fa-star" data-value="3"></i>                     
+                    <i class="fa fa-star" data-value="4"></i>                     
+                    <i class="fa fa-star" data-value="5"></i>                 
+                </div>             
+            </div>             
+            <div class="form-group">                 
+                <label id="feedback-label" for="feedback">Your Feedback:</label>                 
+                <textarea id="feedback" name="feedback" rows="4" required></textarea>             
+            </div>             
+            <button type="button" onclick="submitFeedback()" id="submit-btn">Submit Feedback</button>             
+            <p class="thank-you" id="thank-you-msg">Thank you for your feedback! 😊</p>         
+        </form>     
+    </div>      
+     <script>
+        let translations = {
+            "en": {
+                "form-title": "NeoBridge Feedback Form",
+                "name-label": "Your Name:",
+                "email-label": "Your Email:",
+                "experience-label": "How was your experience using NeoBridge?",
+                "rate-label": "Rate Us:",
+                "feedback-label": "Your Feedback:",
+                "submit-btn": "Submit Feedback",
+                "thank-you-msg": "Thank you for your feedback! 😊"
+            },
+            "hi": {
+                "form-title": "NeoBridge प्रतिक्रिया फ़ॉर्म",
+                "name-label": "आपका नाम:",
+                "email-label": "आपका ईमेल:",
+                "experience-label": "NeoBridge का अनुभव कैसा रहा?",
+                "rate-label": "हमें रेट करें:",
+                "feedback-label": "आपकी प्रतिक्रिया:",
+                "submit-btn": "प्रतिक्रिया सबमिट करें",
+                "thank-you-msg": "आपकी प्रतिक्रिया के लिए धन्यवाद! 😊"
+            },
+            "te": {
+                "form-title": "NeoBridge ఫీడ్బ్యాక్ ఫారమ్",
+                "name-label": "మీ పేరు:",
+                "email-label": "మీ ఇమెయిల్:",
+                "experience-label": "NeoBridge వాడిన అనుభవం ఎలా ఉంది?",
+                "rate-label": "మమ్మల్ని రేట్ చేయండి:",
+                "feedback-label": "మీ ఫీడ్బ్యాక్:",
+                "submit-btn": "ఫీడ్బ్యాక్ సమర్పించండి",
+                "thank-you-msg": "మీ ఫీడ్బ్యాక్ కు ధన్యవాదాలు! 😊"
+            }
+        };
+        
+        function changeLanguage() {
+            let lang = document.getElementById("language").value;
+            for (let key in translations[lang]) {
+                document.getElementById(key).innerText = translations[lang][key];
+            }
+        }
+    </script>
+</body> 
+</html>
