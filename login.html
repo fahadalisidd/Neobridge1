@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+    <link rel="stylesheet" href="stylellogin.css">
+</head>
+<body>
+    <img src="img7.png">
+    <div class="language-selector">
+        <label for="language">Select Language:</label>
+        <select id="language" onchange="changeLanguage()">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी</option>
+            <option value="te">తెలుగు</option>
+        </select>
+    </div>
+    <div class="container" id="login-container">
+        <h2 id="login-title">Login to Neobridge</h2>
+        <input type="text" id="login-username" placeholder="Username">
+        <input type="password" id="login-password" placeholder="Password">
+        <button onclick="validateLogin()" id="login-btn">Login</button>
+        <p id="login-error-message" style="color: red; display: none;">Invalid username or password</p>
+        <p id="signup-link">Don't have an account? <a href="#" onclick="toggleForms()">Sign up</a></p>
+    </div>
+
+    <div class="container hidden" id="signup-container">
+        <h2 id="signup-title">Sign Up to Neobridge</h2>
+        <input type="text" id="signup-username" placeholder="Username">
+        <input type="email" id="signup-email" placeholder="Email">
+        <input type="password" id="signup-password" placeholder="Password">
+        <button onclick="signupUser()" id="signup-btn">Sign Up</button>
+        <p id="login-link">Already have an account? <a href="#" onclick="toggleForms()">Login</a></p>
+    </div>
+    <script src="login.js"></script>
+</body>
+</html>
